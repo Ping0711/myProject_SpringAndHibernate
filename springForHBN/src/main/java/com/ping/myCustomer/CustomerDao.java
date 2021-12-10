@@ -22,7 +22,7 @@ public class CustomerDao implements ICustomer{
     }
 
     @Override
-    public void SignIn(Customer customer) {
+    public void register(Customer customer) {
         Session session = getSessionFactory();
         session.beginTransaction();
         session.save(customer);

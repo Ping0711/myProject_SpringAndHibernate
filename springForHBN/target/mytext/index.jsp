@@ -13,7 +13,7 @@
 </head>
 <body>
 <h1>首頁</h1>
-<a href="/web/signInPage.jsp">註冊系統</a><br> <!--點擊前往註冊系統-->
-<a href="/web/cartPage.jsp">購物車系統</a><br> <!--//點擊前往購物車系統-->
+<a href="/web/registerPage.jsp">註冊系統</a><br> <!--點擊前往註冊系統-->
+<a href="/web/signInPage.jsp">登入系統</a><br> <!--點擊前往登入系統-->
 </body>
 </html>

@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ICustomer {
-    public void SignIn(Customer customer);
+    public void register(Customer customer);
 }

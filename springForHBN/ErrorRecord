@@ -1,0 +1,8 @@
+2021/12/10
+1.返回系統目錄時
+  返回購物車目錄路徑輸入錯誤${pageContent.request.contentPath}
+  *contentpath
+2.from表單 傳回後端cusName有亂碼
+    解決:web.xml filter問題 路徑--> "/*"
+3. SQLQuery中 "select * from [TABLE] WHERE [value] = ? [value2] = ?"
+    Query.setParameter(Int index,Object o); i index是從 0 開始
