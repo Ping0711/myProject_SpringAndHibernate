@@ -27,7 +27,7 @@ public class CustomerService {
     提取此次表單設置的Phone 對資料庫內的所有phone做比對
     相同的話return true 回Controller返回ErrorPage
     */
-    public boolean checkPhone(String s) {
+    public boolean check(String s) {
         Session session = customerDao.getSessionFactory();
         SQLQuery sqlQuery = session.createSQLQuery("select * from customer where cusPhone = :value1 ;");
         sqlQuery.setParameter("value1", s);
@@ -45,13 +45,17 @@ public class CustomerService {
         Session session = customerDao.getSessionFactory();
         String sql = "select * from customer where cusName =? and cusPhone =?;";
         SQLQuery sqlQuery = session.createSQLQuery(sql);
-        System.out.println(customer.getCusName());
-        System.out.println(customer.getCusPhone());
-        sqlQuery.setParameter(0,customer.getCusName());
-        sqlQuery.setParameter(1,customer.getCusPhone());
+        System.out.println("註冊會員請求登入:");
+        System.out.println("名稱 :" + customer.getCusName());
+        System.out.println("手機 :" + customer.getCusPhone());
+        sqlQuery.setParameter(0, customer.getCusName());
+        sqlQuery.setParameter(1, customer.getCusPhone());
         List list = sqlQuery.list();
-        System.out.println(list.size());
-        if (list.size() != 1) return true;
+        if (list.size() != 1) {
+            System.out.println("資料庫查無資料");
+            session.close();
+            return true;
+        }
         session.close();
         return false;
     }

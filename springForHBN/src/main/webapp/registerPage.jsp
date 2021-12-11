@@ -10,8 +10,10 @@
 </head>
 <body>
 <h1>註冊系統</h1>
+
+<!-- 註冊系統 -->
 <div style="border-color: black;background-color: gray ; solid-color: white">
-    <form action="register" method="GET" name="cusForm">
+    <form action="register" method="POST" name="cusForm">
         姓名: <input type="text" name="name" ><br>
         電話: <input type="text" name="phone" ><br>
         地址: <input type="text" name="address" ><br>
@@ -19,5 +21,8 @@
         <input type="reset" name="reset" value="重設" >
     </form>
 </div>
+
+
+<a href="${pageContext.request.contextPath}/index.jsp">系統目錄</a>
 </body>
 </html>
