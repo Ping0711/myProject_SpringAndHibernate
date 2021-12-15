@@ -26,7 +26,7 @@ public class Customer implements Serializable {
         return cusId;
     }
 
-    public void cusId(int cusId) {
+    public void setCusId(int cusId) {
         this.cusId = cusId;
     }
 

@@ -30,10 +30,8 @@
 </div>
 
 <!--返回會員頁面-->
-<form action="signIn" method="post">
-    <input type="text" name="cusName" value="${customer.cusName}" hidden="hidden">
-    <input type="text" name="cusPhone" value="${customer.cusPhone}" hidden="hidden">
-    <input type="submit" value="返回會員頁面">
+<form action="welcomeCustomer" method="post">
+    <button type="submit" name="cusId" value="${customer.cusId}">進入會員頁面</button>
 </form>
 <a href="${pageContext.request.contextPath}/index.jsp">登出並返回首頁</a>
 </body>

@@ -1,5 +1,6 @@
 package com.ping.myProduct;
 
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -37,7 +39,7 @@ public class ProductDao implements IProduct {
     */
     @Override
     public List<Product> showProducts() {
-        List list = new ArrayList(); // list存放各id的整行數據
+        List<Product> list = new ArrayList(); // list存放各id的整行數據
         List total;// total存放product表中有多少筆資料
         Product product;
         Session session = getSessionFactory();
@@ -50,4 +52,45 @@ public class ProductDao implements IProduct {
         }
         return list;
     }
+
+    //以商品id從資料庫拿取商品的資料，再跳轉頁面時，能跟著傳輸商品資料
+    @Override
+    public Product findId(int proId) {
+        Session session = getSessionFactory();
+        Product product = session.get(Product.class, proId);
+        session.close();
+        return product;
+    }
+
+    //從資料庫取得商品數量
+    @Override
+    public boolean checkProducts(int proId, int buyNum) {
+        //返回物件Product修改
+        Session session = getSessionFactory();
+        Product product = session.get(Product.class, proId);
+        if (product.getProNum() >= buyNum) {
+            return true;
+        }
+        session.close();
+        return false;
+    }
+
+    @Override
+    public List<Product> showMyProducts(int cusId) {
+        Session session = getSessionFactory();
+        session.beginTransaction();
+        Query Query = session.createQuery("from Product where cusId = " + cusId);
+        List<Product> list = Query.list();
+        System.out.println(list.toString());
+        session.close();
+        return list;
+    }
+    //        int result = product.getProNum() - buyNum;
+//        product.setProNum(result);
+//        對資料庫資料做真正修改
+//        String sql = "update product set proNum = " + result + " where id = " + proId;
+//        SQLQuery sqlQuery = session.createSQLQuery(sql);
+//        session.beginTransaction();
+//        session.save(product);
+//        session.getTransaction().commit();
 }

@@ -12,30 +12,32 @@
 <p>以下是購物城預覽您商品樣貌</p>
 
 <!-- 預覽上傳商品 -->
-<div style="background-color: gainsboro;width: auto ;height: auto">
-    <p>商品名稱 : ${product.proName}</p>
-    <p>商品價格 : ${product.proPrice}</p>
-    <p>商品圖片如下 : </p>
-    <p><img src="${pageContext.request.contextPath}/${product.proPicture}"></p>
+<div style="background-color: gainsboro;width: auto ;height: auto;" >
+    <table style="background-color: burlywood">
+    <tr style="background-color: blanchedalmond;">
+        <td>商品名稱</td>
+        <td>商品價格</td>
+        <td>數量</td>
+        <td>商品圖片</td>
+    </tr>
+    <tr style="background-color: lightcyan">
+        <td>${product.proName}</td>
+        <td>${product.proPrice}</td>
+        <td>${product.proNum}</td>
+        <td><img src="${pageContext.request.contextPath}/${product.proPicture}" height="100" width="100"></td>
+    </tr>
+    </table>
     <form action="newProduct" method="post">
-        <input type="text" name="cusName" value="${customer.cusName}" hidden="hidden">
-        <input type="text" name="cusPhone" value="${customer.cusPhone}" hidden="hidden">
-        <input type="submit" value="繼續新增商品">
+        <button type="submit" name="cusId" value="${customer.cusId}">繼續新增商品</button>
     </form>
 </div>
-
 <!-- 返回會員頁面 -->
-<form action="signIn" method="post">
-    <input type="text" name="cusName" value="${customer.cusName}" hidden="hidden">
-    <input type="text" name="cusPhone" value="${customer.cusPhone}" hidden="hidden">
-    <input type="submit" value="返回會員頁面">
+<form action="welcomeCustomer" method="post">
+    <button type="submit" name="cusId" value="${customer.cusId}">返回會員頁面</button>
 </form>
-
 <!-- 購物商城 -->
 <form action="showProductPage" method="post">
-    <input type="text" name="cusName" value="${customer.cusName}" hidden="hidden">
-    <input type="text" name="cusPhone" value="${customer.cusPhone}" hidden="hidden">
-    <input type="submit" value="進入購物商城">
+    <button type="submit" name="cusId" value="${customer.cusId}">進入購物商城</button>
 </form>
 
 </body>

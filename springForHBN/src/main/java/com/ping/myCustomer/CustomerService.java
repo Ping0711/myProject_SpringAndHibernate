@@ -1,6 +1,5 @@
 package com.ping.myCustomer;
 
-import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,25 +37,33 @@ public class CustomerService {
     }
 
     /*  signIn()
-    如果在資料庫中沒找到相同 cusName 與 cusPhone
-    返回true 並返回ErrorPage.jsp
      */
-    public boolean signIn(Customer customer) {
-        Session session = customerDao.getSessionFactory();
-        String sql = "select * from customer where cusName =? and cusPhone =?;";
-        SQLQuery sqlQuery = session.createSQLQuery(sql);
+    public Customer signIn(Customer customer) {
+        Customer signInCus = customerDao.signIn(customer);
+        System.out.println("-------------------------");
+        System.out.println("將從資料庫找出用戶編碼");
         System.out.println("註冊會員請求登入:");
-        System.out.println("名稱 :" + customer.getCusName());
-        System.out.println("手機 :" + customer.getCusPhone());
-        sqlQuery.setParameter(0, customer.getCusName());
-        sqlQuery.setParameter(1, customer.getCusPhone());
-        List list = sqlQuery.list();
-        if (list.size() != 1) {
-            System.out.println("資料庫查無資料");
-            session.close();
-            return true;
-        }
-        session.close();
-        return false;
+        System.out.println("ID :" + signInCus.getCusId());
+        System.out.println("名稱 :" + signInCus.getCusName());
+        System.out.println("手機 :" + signInCus.getCusPhone());
+        System.out.println("-------------------------");
+        return customer;
+    }
+    // 用會員id 尋找資料庫會員所有內容 返回所有欄位
+    public Customer findById(int cusId){
+        System.out.println("-------------------------");
+        System.out.println("目前登入會員ID " + cusId);
+        System.out.println("-------------------------");
+        return customerDao.findByID(cusId);
+    }
+    // 以會員姓名與客戶電話 找到客戶ID 有找到後返回flag 進入signIn()方法
+    public boolean checkCus(Customer customer){
+        boolean flag = customerDao.checkCus(customer);
+        System.out.println("-------------------------");
+        System.out.println("找到客戶 顯示true ");
+        System.out.println("未找到客戶 顯示false ");
+        System.out.println("顯示 :"+flag);
+        System.out.println("-------------------------");
+        return flag;
     }
 }

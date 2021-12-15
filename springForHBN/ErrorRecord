@@ -24,3 +24,20 @@
     3. 用${pageContext.request.contextPath}/${products.proPicture} 在啟動tomcat時 會尋找target裡的images檔案
     4. multiFile file。 file.transferTO(new File("D:\\某個資料夾\\")) --> 將轉成2進制圖檔複製到某個資料夾裡面
         概念像是BufferInputFile()需要先將檔案轉成2進制,再write一樣
+四. 表單傳輸錯誤(500)
+    1.一個表單 如果有兩個按鈕無法直接寄出 需要用一些方法處理
+        解決: 個別用不同的表單處理action
+    2.value null
+        解決: name屬性 value屬性看清楚
+    3. button屬性 與 script (實現->按下按鈕傳送表單)
+         <form action="buyProduct" method="post" id="send">
+         <input type="button" onclick="cartAdd()" value="加入購物車">
+         <script>
+         function cartAdd(){
+         document.getElementById("send").submit
+         }
+         </script>
+五. Query返回問題
+    使用SQLQuery.list()返回的结果不能進行類型的轉換。
+    使用Query.list()返回的结果可以正常轉換。
+    使用Criteria.list()返回的结果可以正常轉換。

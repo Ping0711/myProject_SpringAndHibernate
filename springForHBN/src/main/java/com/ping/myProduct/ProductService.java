@@ -13,7 +13,7 @@ import java.util.UUID;
 public class ProductService {
     @Autowired
     ProductDao productDao;
-
+    //新增商品資料
     public String saveFile(MultipartFile file, Product product) throws IOException, InterruptedException {
         String name = UUID.randomUUID().toString().replaceAll("-", ""); // UUTD產生亂碼後 去掉亂碼中 "-" 符號
         String fileName = file.getOriginalFilename(); // 取得上傳的file的名稱
@@ -22,11 +22,6 @@ public class ProductService {
         //複製file
         file.transferTo(new File("C:\\Users\\MSI\\Desktop\\springForHBN\\src\\main\\webapp\\WEB-INF\\images\\"+proPicture));
         file.transferTo(new File("C:\\Users\\MSI\\Desktop\\springForHBN\\target\\springForHBN\\WEB-INF\\images\\"+proPicture));
-//        file.transferTo(new File("C:\\Users\\MSI\\Desktop\\springForHBN\\src\\main\\webapp\\WEB-INF\\images\\"+proPicture));
-//        BufferedOutputStream outFile = new BufferedOutputStream(new FileOutputStream("C:\\Users\\MSI\\Desktop\\springForHBN\\src\\main\\webapp\\WEB-INF\\images\\" + name + "." + ext));
-//        outFile.write(file.getBytes());
-//        outFile.flush();
-//        outFile.close();
         /*
         設定資料庫中 proPicture 路徑名稱
         將資料送進資料庫
@@ -35,8 +30,46 @@ public class ProductService {
         productDao.saveFile(product);
         return "images/" + proPicture;
     }
-
+    //從資料庫拿取購物商城所有資料
     public List<Product> showProducts() {
-        return productDao.showProducts();
+        List<Product> list = productDao.showProducts();
+        System.out.println("---------------------------");
+        System.out.println("資料庫內擁有的商品數 : "+list.size());
+        System.out.println("---------------------------");
+        return list;
+    }
+    //由商品id 從資料庫找到商品欄位所有資料
+    public Product findId(int proId) {
+        Product product = productDao.findId(proId);
+        System.out.println("---------------------------");
+        System.out.println("按下[介紹商品]");
+        System.out.println("ID :"+product.getProId());
+        System.out.println("照片路徑 :"+product.getProPicture());
+        System.out.println("商品名稱 :"+product.getProName());
+        System.out.println("商品價格 :"+product.getProPrice());
+        System.out.println("商品數量 :"+product.getProNum());
+        System.out.println("---------------------------");
+        return product;
+    }
+    //檢查想加入購物車的商品，庫存量夠不夠
+    public boolean checkProducts(int proId,int buyNum){
+        System.out.println("準備檢查庫存");
+        boolean flag = productDao.checkProducts(proId,buyNum);
+        System.out.println("----------------------------");
+        System.out.println("商品編號 : "+proId);
+        System.out.println("欲購買數量 : "+buyNum);
+        System.out.println("商品足夠顯示 true  " );
+        System.out.println("商品不夠顯示 false  " );
+        System.out.println("顯示  : " +flag);
+        System.out.println("----------------------------");
+        return flag;
+    }
+
+    public List<Product> showMyProduct(int cusId) {
+        List<Product> productList = productDao.showMyProducts(cusId);
+        System.out.println("----------------------------");
+        System.out.println("會員新增的商品列表數 : "+productList.size());
+        System.out.println("----------------------------");
+        return productList;
     }
 }
