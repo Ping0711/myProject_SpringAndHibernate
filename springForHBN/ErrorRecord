@@ -30,11 +30,7 @@
     2.value null
         解決: name屬性 value屬性看清楚
     3. button屬性 與 script (實現->按下按鈕傳送表單)
-<<<<<<< HEAD
          <form action="buyCustomer" method="post" id="send">
-=======
-         <form action="buyProduct" method="post" id="send">
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
          <input type="button" onclick="cartAdd()" value="加入購物車">
          <script>
          function cartAdd(){
@@ -45,12 +41,9 @@
     使用SQLQuery.list()返回的结果不能進行類型的轉換。
     使用Query.list()返回的结果可以正常轉換。
     使用Criteria.list()返回的结果可以正常轉換。
-<<<<<<< HEAD
     ### 對映的[類名]要注意 是class類名 而不是Table表名 ! "from [BuyCustomer] where buyCusId = 1 ";
 六. 表單<c:forEach>
     只要是button 按下傳送表單後 傳輸的值都會是第一個放置的name
     <input type="button"onclick="xx()">
     <button type="submit" onclick="xx()">
     解決 用<input type="submit">
-=======
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da

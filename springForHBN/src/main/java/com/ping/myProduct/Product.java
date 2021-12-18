@@ -1,6 +1,5 @@
 package com.ping.myProduct;
 
-<<<<<<< HEAD
 import com.ping.myBuyCustomer.BuyCustomer;
 import com.ping.myCustomer.Customer;
 
@@ -8,11 +7,6 @@ import javax.annotation.Generated;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
-=======
-import javax.annotation.Generated;
-import javax.persistence.*;
-import java.io.Serializable;
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
 
 @Entity
 @Table(name = "product")
@@ -28,17 +22,9 @@ public class Product implements Serializable {
     private String proPicture;
     @Column(nullable = false)
     private int proNum;
-<<<<<<< HEAD
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
     @JoinColumn(name = "cusId")
     private Customer customer;
-=======
-    @Column(nullable = false)
-    private int cusId;
-    @Column(nullable = false)
-    private String cusName;
-
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
 
     public Product() {
     }
@@ -83,28 +69,11 @@ public class Product implements Serializable {
         this.proNum = proNum;
     }
 
-<<<<<<< HEAD
     public Customer getCustomer() {
         return customer;
     }
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-=======
-    public int getCusId() {
-        return cusId;
-    }
-
-    public void setCusId(int cusId) {
-        this.cusId = cusId;
-    }
-
-    public String getCusName() {
-        return cusName;
-    }
-
-    public void setCusName(String cusName) {
-        this.cusName = cusName;
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
     }
 }

@@ -19,20 +19,14 @@
         <td>商品價格</td>
         <td>數量</td>
         <td>商品圖片</td>
-<<<<<<< HEAD
         <td>商品賣家</td>
-=======
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
     </tr>
     <tr style="background-color: lightcyan">
         <td>${product.proName}</td>
         <td>${product.proPrice}</td>
         <td>${product.proNum}</td>
         <td><img src="${pageContext.request.contextPath}/${product.proPicture}" height="100" width="100"></td>
-<<<<<<< HEAD
         <td>${product.customer.cusName}</td>
-=======
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
     </tr>
     </table>
     <form action="newProduct" method="post">

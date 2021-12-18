@@ -32,29 +32,17 @@ public class ProductService {
     }
     //從資料庫拿取購物商城所有資料
     public List<Product> showProducts() {
-<<<<<<< HEAD
         List<Product> productList = productDao.showProducts();
         System.out.println("---------------------------");
         System.out.println("資料庫內擁有的商品數 : "+productList.size());
         System.out.println("---------------------------");
         return productList;
-=======
-        List<Product> list = productDao.showProducts();
-        System.out.println("---------------------------");
-        System.out.println("資料庫內擁有的商品數 : "+list.size());
-        System.out.println("---------------------------");
-        return list;
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
     }
     //由商品id 從資料庫找到商品欄位所有資料
     public Product findId(int proId) {
         Product product = productDao.findId(proId);
         System.out.println("---------------------------");
-<<<<<<< HEAD
         System.out.println("商品內容");
-=======
-        System.out.println("按下[介紹商品]");
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
         System.out.println("ID :"+product.getProId());
         System.out.println("照片路徑 :"+product.getProPicture());
         System.out.println("商品名稱 :"+product.getProName());
@@ -81,7 +69,6 @@ public class ProductService {
         List<Product> productList = productDao.showMyProducts(cusId);
         System.out.println("----------------------------");
         System.out.println("會員新增的商品列表數 : "+productList.size());
-<<<<<<< HEAD
         System.out.println("各商品ID : ");
         for (Product product:
              productList) {
@@ -108,9 +95,4 @@ public class ProductService {
         System.out.println("移除事務成功");
         System.out.println("----------------------------");
     }
-=======
-        System.out.println("----------------------------");
-        return productList;
-    }
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
 }

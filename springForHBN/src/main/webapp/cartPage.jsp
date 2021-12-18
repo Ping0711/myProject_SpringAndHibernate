@@ -9,11 +9,7 @@
 <!-- 商品全覽 -->
 <div style="background-color: gainsboro;width: auto ;height: auto">
     <c:forEach var="products" items="${product}">
-<<<<<<< HEAD
         <form action="buyCustomer" method="post" name="ProductForm">
-=======
-        <form action="buyProduct" method="post" name="ProductForm">
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
             <p>商品名稱 : ${products.proName}</p>
             <p>商品價格 : ${products.proPrice}</p>
             <p>圖片如下 : </p>

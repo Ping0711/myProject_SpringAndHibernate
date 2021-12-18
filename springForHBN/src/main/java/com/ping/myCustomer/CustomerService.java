@@ -6,11 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-<<<<<<< HEAD
 @Service
-=======
-
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
 public class CustomerService {
 
     @Autowired

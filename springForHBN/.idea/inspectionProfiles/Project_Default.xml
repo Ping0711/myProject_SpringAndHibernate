@@ -6,7 +6,6 @@
         <language minSize="56" name="Java" />
       </Languages>
     </inspection_tool>
-<<<<<<< HEAD
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
@@ -23,8 +22,6 @@
       </option>
       <option name="myCustomValuesEnabled" value="true" />
     </inspection_tool>
-=======
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
     <inspection_tool class="SpringFacetInspection" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="checkTestFiles" value="false" />
     </inspection_tool>

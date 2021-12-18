@@ -31,10 +31,7 @@
 
 <form action="myProduct" method="post">
     <input name="cusId" value="${customer.cusId}" hidden="hidden">
-<<<<<<< HEAD
     <input name="findMyProduct" value="findMyProduct" hidden="hidden">
-=======
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
     <button name="proCheck" value="proCheck" >我賣的商品</button>
 </form>
 <a href="#">清除購物車</a><br>

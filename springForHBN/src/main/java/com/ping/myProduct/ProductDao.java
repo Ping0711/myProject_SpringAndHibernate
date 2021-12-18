@@ -1,13 +1,6 @@
 package com.ping.myProduct;
 
-<<<<<<< HEAD
 import org.hibernate.*;
-=======
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.object.SqlQuery;
 import org.springframework.stereotype.Repository;
@@ -43,7 +36,6 @@ public class ProductDao implements IProduct {
     */
     @Override
     public List<Product> showProducts() {
-<<<<<<< HEAD
         Session session = getSessionFactory();
         session.getTransaction();
         String sql = " from Product where proId > 0";
@@ -61,20 +53,6 @@ public class ProductDao implements IProduct {
 //            list.add(product);
 //        }
         return productList;
-=======
-        List<Product> list = new ArrayList(); // list存放各id的整行數據
-        List total;// total存放product表中有多少筆資料
-        Product product;
-        Session session = getSessionFactory();
-        String sql = "select * from product";
-        SQLQuery sqlQuery = session.createSQLQuery(sql);
-        total = sqlQuery.list();
-        for (int id = 1; id <= total.size(); id++) {
-            product = session.get(Product.class, id);
-            list.add(product);
-        }
-        return list;
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
     }
 
     //以商品id從資料庫拿取商品的資料，再跳轉頁面時，能跟著傳輸商品資料
@@ -103,7 +81,6 @@ public class ProductDao implements IProduct {
     public List<Product> showMyProducts(int cusId) {
         Session session = getSessionFactory();
         session.beginTransaction();
-<<<<<<< HEAD
         Query query = session.createQuery("from Product where cusId = " + cusId);
         List<Product> list = query.list();
         session.close();
@@ -131,20 +108,4 @@ public class ProductDao implements IProduct {
         session.close();
     }
 
-=======
-        Query Query = session.createQuery("from Product where cusId = " + cusId);
-        List<Product> list = Query.list();
-        System.out.println(list.toString());
-        session.close();
-        return list;
-    }
-    //        int result = product.getProNum() - buyNum;
-//        product.setProNum(result);
-//        對資料庫資料做真正修改
-//        String sql = "update product set proNum = " + result + " where id = " + proId;
-//        SQLQuery sqlQuery = session.createSQLQuery(sql);
-//        session.beginTransaction();
-//        session.save(product);
-//        session.getTransaction().commit();
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
 }

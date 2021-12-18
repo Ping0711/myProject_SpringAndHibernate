@@ -19,18 +19,11 @@
         <property name="connection.username">root</property>
         <!-- 資料庫密碼 -->
         <property name="connection.password">root</property>
-<<<<<<< HEAD
-        <property name="hibernate.hbm2ddl.auto">update</property>
-<!--        <mapping resource="cart.hbm.xml"/>-->
-        <mapping class="com.ping.myCustomer.Customer"/>
-        <mapping class="com.ping.myProduct.Product"/>
-        <mapping class="com.ping.myBuyCustomer.BuyCustomer"/>
-=======
         <property name="hibernate.hbm2ddl.auto">create</property>
 <!--        <mapping resource="cart.hbm.xml"/>-->
         <mapping class="com.ping.myCustomer.Customer"/>
         <mapping class="com.ping.myProduct.Product"/>
->>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
+        <mapping class="com.ping.myBuyCustomer.BuyCustomer"/>
     </session-factory>
 
 </hibernate-configuration>
