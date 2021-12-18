@@ -1,21 +1,42 @@
-配置檔案都寫好
-你試試看
-
-1)TestStarter 專門測試 hibernate 是有效，可以用的;
-2)TestSpringWithHibernateFunction 測試 Spring 配上 Hibernate 是有效的
-
-兩個都有效之後,我們再來試試看配上MVC。
-如果確定連上hibernate,會出現類似這樣的訊息 :
-==============================================
-Hibernate:
-    drop table if exists Empp
-Hibernate:
-    drop table if exists hibernate_sequence
-Hibernate:
-    create table Empp (
-        id integer not null,
-        name varchar(255),
-        price varchar(255),
-        primary key (id)
-    )
-==============================================
+2021/12/09 新增註冊功能
+           使用 Spring MVC 與 Hibernate
+----------
+2021/12/10 新增-
+    登入系統-登入驗證系統
+    錯誤頁面整理
+    ErrorRecord.txt-記錄自己發現報錯時的解決辦法
+    商品頁面-商品新增功能-圖片亂碼存檔
+2021/12/11 新增-
+    購物城頁面(showProduct.jsp), 成功顯示字樣(需要顯示出圖片) 修改ok!
+    可以使用session.get()方法取出資料庫資料(需要修改方法,顯示正確的資料庫圖片) 修改ok!
+    TODO.txt檔案-裡面寫需要增加的功能
+2021/12/13 新增
+    [我的購物車]頁面
+    [商品介紹]頁面(buyProductPage.jsp) -> [加入購物車]按鈕,[查看購物車]按鈕
+    各按鈕方法調整
+2021/12/14 新增
+    如果購買數量太多->彈跳視窗
+    資料庫能以隨著購買數量跟著改變
+    修改以表格方式顯示商品
+2021/12/15 新增
+    會員可以看到自己上架哪些物品
+    購物商城現在能看到賣家是誰
+    myProduct(int cusId)方法
+2021/12/16 新增
+    我的購物車可以看到自己購買的商品(但是還沒有將相同購買的資料統整在一起)
+    新增商品系統更新
+    多對一的用法
+2021/12/18 更新
+    可以移除 [我賣的商品] 。
+    同時移除被放入其他會員 [我的購物車] 內擁有的商品
+            新增
+    buyCustomer類 多對一
+    商品id 可以找到多個購買客人(BuyCusId)
+    會員id 可以找到多個販賣商品(proId)
+    一: proId 多:BuyCusId
+    一: cusId 多:proId
+    ---------------------  ------------------------
+    |cusId-->proId-1    |  |proId-->BuyCusId-1    |
+    |     -->proId-2    |  |     -->BuyCusId-2    |
+    |     -->proId-3    |  |     -->BuyCusId-3    |
+    ---------------------  ------------------------

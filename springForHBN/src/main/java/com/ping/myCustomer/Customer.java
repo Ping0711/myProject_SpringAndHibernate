@@ -1,5 +1,7 @@
 package com.ping.myCustomer;
 
+import com.ping.myProduct.Product;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -19,6 +21,7 @@ public class Customer implements Serializable {
     @Column(nullable = false)
     private String cusAddress;
 
+
     public Customer() {
     }
 
@@ -26,7 +29,7 @@ public class Customer implements Serializable {
         return cusId;
     }
 
-    public void cusId(int cusId) {
+    public void setCusId(int cusId) {
         this.cusId = cusId;
     }
 
@@ -53,4 +56,5 @@ public class Customer implements Serializable {
     public void setCusAddress(String cusAddress) {
         this.cusAddress = cusAddress;
     }
+
 }
