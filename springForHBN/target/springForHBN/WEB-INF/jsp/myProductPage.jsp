@@ -4,6 +4,7 @@
 <head>
     <title>我賣的商品</title>
 </head>
+<<<<<<< HEAD
 <script>
     // function sendAlter() {
     //     var alterNum2Int = parseInt(document.getElementById("alterNum").value);
@@ -20,6 +21,8 @@
     //         }
     // }
 </script>
+=======
+>>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
 <body>
 <h1>您好${customer.cusName}</h1>
 <h2>以下是您賣的商品</h2>
@@ -27,11 +30,15 @@
 <div style="background-color: gainsboro;width: auto ;height: auto">
     <table style="background-color: burlywood">
         <tr style="background-color: blanchedalmond">
+<<<<<<< HEAD
             <td></td>
+=======
+>>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
             <td>商品名稱</td>
             <td>商品價格</td>
             <td>商品數量</td>
             <td>圖片如下</td>
+<<<<<<< HEAD
             <td>修改數量</td>
         </tr>
         <c:forEach var="myProducts" items="${myProductsList}">
@@ -52,6 +59,16 @@
                 <td><input type="submit" id="dropForm" name="button" value="移除" onclick="sendDrop()"></td>
                 </tr>
             </form>
+=======
+        </tr>
+        <c:forEach var="myProduct" items="${productList}">
+        <tr style="background-color: lightcyan">
+            <td>${myProduct.proName}</td>
+            <td>${myProduct.proPrice}</td>
+            <td>${myProduct.proNum}</td>
+            <td><img src="${pageContext.request.contextPath}/${myProduct.proPicture}" width="150" height="150"></td>
+        </tr>
+>>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
         </c:forEach>
     </table>
     <form action="welcomeCustomer" method="post">

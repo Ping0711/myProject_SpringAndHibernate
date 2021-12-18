@@ -16,6 +16,7 @@
     <button type="submit" name="cusId" value="${customer.cusId}">進入購物商城</button>
 </form>
 <h2>以下是放入購物車內的商品</h2>
+<<<<<<< HEAD
 <div style="width: auto ;height: auto">
     <table style="background-color: burlywood">
         <tr style="background-color: blanchedalmond;">
@@ -33,11 +34,31 @@
                          width="100" height="100"></td>
                 <td>${buyCustomer.product.customer.cusName}</td>
                 <td>${buyCustomer.buyNum}*${buyCustomer.product.proPrice}</td>
+=======
+<div>
+    <table style="background-color: burlywood">
+        <tr style="background-color: blanchedalmond;">
+            <td>商品名稱</td>
+            <td>商品數量</td>
+            <td>商品圖片</td>
+            <td>總額</td>
+        </tr>
+        <c:forEach var="productList" items="${productList}">
+            <tr style="background-color: lightcyan">
+                <td>${allProduct.proName}</td>
+                <td>${allProduct.proNum}</td>
+                <td>${allProduct.proPicture}</td>
+                <td>${allProduct.proPrice}</td>
+>>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
             </tr>
         </c:forEach>
     </table>
 </div>
+<<<<<<< HEAD
 <p><input type="button" value="確認結帳">
 <p>
+=======
+<p><input type="button" value="確認結帳"><p>
+>>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
 </body>
 </html>

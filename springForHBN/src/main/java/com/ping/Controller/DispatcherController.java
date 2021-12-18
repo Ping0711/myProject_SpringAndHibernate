@@ -6,7 +6,10 @@ import com.ping.myCustomer.Customer;
 import com.ping.myCustomer.CustomerService;
 import com.ping.myProduct.Product;
 import com.ping.myProduct.ProductService;
+<<<<<<< HEAD
 import com.sun.scenario.effect.impl.prism.PrDrawable;
+=======
+>>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,8 +29,11 @@ public class DispatcherController {
     CustomerService customerService;
     @Autowired
     ProductService productService;
+<<<<<<< HEAD
     @Autowired
     BuyCustomerService buyCustomerService;
+=======
+>>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
 
     //註冊系統
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -102,6 +108,10 @@ public class DispatcherController {
         int cusId = Integer.parseInt(request.getParameter("cusId"));
         customer = customerService.findById(cusId);
         modelMap.addAttribute("customer", customer);
+<<<<<<< HEAD
+=======
+
+>>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
         //獲取表單內屬性賦值，存入資料庫
         String proName = request.getParameter("proName");
         int proPrice = Integer.parseInt(request.getParameter("proPrice"));
@@ -109,7 +119,12 @@ public class DispatcherController {
         product.setProName(proName);
         product.setProPrice(proPrice);
         product.setProNum(proNum);
+<<<<<<< HEAD
         product.setCustomer(customer);
+=======
+        product.setCusId(customer.getCusId());
+        product.setCusName(customer.getCusName());
+>>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
         /*  productService.saveFile()
             在方法裡 file複製到images裡 返回String 資料路徑
             並將file路徑 存進資料庫裡
@@ -128,6 +143,7 @@ public class DispatcherController {
         customer = customerService.findById(cusId);
         modelMap.addAttribute("customer", customer);
         //取得所有資料庫資料 並顯示
+<<<<<<< HEAD
         List<Product> productList = productService.showProducts();
         for (Product product :
                 productList) {
@@ -249,12 +265,82 @@ public class DispatcherController {
     //我的購物車
     @RequestMapping("/checkMyCart")
     public String myCart(HttpServletRequest request, Product product, ModelMap modelMap, Customer customer) {
+=======
+        List<Product> list = productService.showProducts();
+        modelMap.addAttribute("product", list);
+        return "showProductPage";
+    }
+
+    //商品介紹
+    @RequestMapping("/buyProduct")
+    public String buyProduct(ModelMap modelMap, HttpServletRequest request, Customer customer,
+                             Product product) {
+>>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
         // ---取得此次表單id 將資料庫id相同的內容裝進customer裡
         int cusId = Integer.parseInt(request.getParameter("cusId"));
         customer = customerService.findById(cusId);
         modelMap.addAttribute("customer", customer);
+<<<<<<< HEAD
         List<BuyCustomer> buyCustomerList = buyCustomerService.showBuyProduct(customer.getCusId());
         modelMap.addAttribute("buyCustomerList", buyCustomerList);
         return "myCart";
+=======
+        // ---取得此次表單id 將資料庫id相同的內容裝進product裡
+        int proId = Integer.parseInt(request.getParameter("proId"));
+        product = productService.findId(proId);
+
+        modelMap.addAttribute("product", product);
+        return "buyProductPage";
     }
+
+    @RequestMapping("/myProduct")
+    public String myProduct(ModelMap modelMap, HttpServletRequest request, Customer customer,
+                            Product product){
+        int cusId = Integer.parseInt(request.getParameter("cusId"));
+        customer = customerService.findById(cusId);
+        modelMap.addAttribute("customer", customer);
+        List<Product> productList = productService.showMyProduct(customer.getCusId());
+        modelMap.addAttribute("productList",productList);
+        return "myProductPage";
+    }
+    //加入購物車
+    @RequestMapping("/addMyCart")
+    public String addMuCart(Customer customer, Product product, HttpServletRequest request, ModelMap modelMap) {
+        // ---取得此次表單id 將資料庫id相同的內容裝進customer裡
+        int cusId = Integer.parseInt(request.getParameter("cusId"));
+        customer = customerService.findById(cusId);
+        modelMap.addAttribute("customer", customer);
+        // ---取得此次表單id 將資料庫id相同的內容裝進product裡
+        int proId = Integer.parseInt(request.getParameter("proId"));
+        product = productService.findId(proId);
+        // ---取輸入的購買數量
+        int buyNum = Integer.parseInt(request.getParameter("buyNum"));
+        System.out.println("取得購買數量 : " + buyNum);
+        /*
+            雖然前端有先確認一次輸入數量與庫存量
+            可是如果別人剛好買走，可以確認商品庫存是否足夠
+         */
+        if (!productService.checkProducts(product.getProId(), buyNum)) {
+            System.out.println("發現庫存不足");
+            System.out.println("----------------------------");
+            modelMap.addAttribute("customer", customer);
+            modelMap.addAttribute("buyError", "真抱歉! 商品已經被買光拉~");
+            modelMap.addAttribute("product", product);
+            return "buyProductPage";
+        }
+        modelMap.addAttribute("product", product);
+        return "buyProductPage";
+>>>>>>> e06b6c9b6e9d84400d8a788d3e02b1d03a5fe8da
+    }
+
+    //我的購物車
+    @RequestMapping("/checkMyCart")
+    public String myCart(HttpServletRequest request, Product product, ModelMap modelMap, Customer customer) {
+        // ---取得此次表單id 將資料庫id相同的內容裝進customer裡
+        int cusId = Integer.parseInt(request.getParameter("cusId"));
+        customer = customerService.findById(cusId);
+        return "myCart";
+    }
+
+
 }
