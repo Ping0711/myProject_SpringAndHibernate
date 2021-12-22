@@ -5,20 +5,6 @@
     <title>我賣的商品</title>
 </head>
 <script>
-    // function sendAlter() {
-    //     var alterNum2Int = parseInt(document.getElementById("alterNum").value);
-    //     if(alterNum2Int<=0){
-    //         window.alert("輸入數字錯誤! 您輸入的數字 : " +alterNum2Int)
-    //     }
-    // }
-    // function sendDrop() {
-    //     var alterNum = document.getElementById("alterNum");
-    //         alert("即將刪除商品...")
-    //         if(window.confirm("確認移除商品嗎?") !== true){
-    //             window.alert("取消移除")
-    //             window.location.assign(window.location.href);
-    //         }
-    // }
 </script>
 <body>
 <h1>您好${customer.cusName}</h1>
@@ -32,7 +18,8 @@
             <td>商品價格</td>
             <td>商品數量</td>
             <td>圖片如下</td>
-            <td>修改數量</td>
+            <td>修改金額</td>
+            <td>修改庫存量</td>
         </tr>
         <c:forEach var="myProducts" items="${myProductsList}">
             <form action="myProduct" method="post" >
@@ -42,14 +29,15 @@
                 <td>${myProducts.proPrice}</td>
                 <td>${myProducts.proNum}</td>
                 <td><img src="${pageContext.request.contextPath}/${myProducts.proPicture}" width="150" height="150"></td>
+                <td> <input type="number" id="alterPrice" name="alterPrice" value="${myProducts.proPrice}"></td>
                 <td>
-                    <input type="number" id="alterNum" name="alterNum" value="1">
+                    <input type="number" id="alterNum" name="alterNum" value="${myProducts.proNum}">
                     <input name="cusId" value="${myProducts.customer.cusId}" hidden="hidden">
                     <input name="proId" value="${myProducts.proId}" hidden="hidden">
                     <input name="findMyProduct" value="alter" hidden="hidden">
                 </td>
-                <td><input type="submit" id="alterForm" name="button" value="修改" onclick="sendAlter()"></td>
-                <td><input type="submit" id="dropForm" name="button" value="移除" onclick="sendDrop()"></td>
+                <td><input type="submit" id="alterForm" name="button" value="修改" ></td>
+                <td><input type="submit" id="dropForm" name="button" value="移除" ></td>
                 </tr>
             </form>
         </c:forEach>

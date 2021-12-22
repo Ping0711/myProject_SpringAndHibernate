@@ -26,7 +26,7 @@
 <!-- 我的購物車 -->
 <form action="checkMyCart" method="post">
     <input name="cusId" value="${customer.cusId}" hidden="hidden">
-    <button name="proCheck" value="proCheck" >查看購物車</button>
+    <button name="button" value="checkMyCart" >查看購物車</button>
 </form>
 
 <form action="myProduct" method="post">
@@ -34,6 +34,5 @@
     <input name="findMyProduct" value="findMyProduct" hidden="hidden">
     <button name="proCheck" value="proCheck" >我賣的商品</button>
 </form>
-<a href="#">清除購物車</a><br>
 <a href="${pageContext.request.contextPath}/index.jsp">登出並返回首頁</a>
 </body>

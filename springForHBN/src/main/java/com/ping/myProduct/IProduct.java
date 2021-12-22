@@ -15,5 +15,7 @@ public interface IProduct {
 
     public void alterMyProduct(Product product, int altNum);
 
-    void dropMyProduct(Product product);
+    public void dropMyProduct(Product product);
+
+    public Product inAlterMyProduct(String button, String alterNum,String alterPrice, Product product);
 }

@@ -35,6 +35,10 @@ public class ProductService {
         List<Product> productList = productDao.showProducts();
         System.out.println("---------------------------");
         System.out.println("資料庫內擁有的商品數 : "+productList.size());
+        for (Product product:
+             productList) {
+            System.out.println("商品ID : " + product.getProId());
+        }
         System.out.println("---------------------------");
         return productList;
     }
@@ -66,8 +70,9 @@ public class ProductService {
     }
 
     public List<Product> showMyProduct(int cusId) {
-        List<Product> productList = productDao.showMyProducts(cusId);
         System.out.println("----------------------------");
+        System.out.println("尋找會員新增商品列表中...");
+        List<Product> productList = productDao.showMyProducts(cusId);
         System.out.println("會員新增的商品列表數 : "+productList.size());
         System.out.println("各商品ID : ");
         for (Product product:
@@ -78,21 +83,16 @@ public class ProductService {
         return productList;
     }
 
-    public void alterMyProduct(Product product,int alterNum) {
-        System.out.println("----------------------------");
-        System.out.println("預備修改事務");
-        productDao.alterMyProduct(product,alterNum);
-        System.out.println("修改事務成功");
-        System.out.println("----------------------------");
-    }
 
-    public void dropMyProduct(Product product) {
+    public Product inAlterMyProduct(String button, String alterNum,String alterPrice,Product product) {
         System.out.println("----------------------------");
-        System.out.println("預備移除事務");
-        System.out.println("準備刪除商品 ID  :"+ product.getProId());
-        System.out.println("準備刪除商品名稱 :" + product.getProName());
-        productDao.dropMyProduct(product);
-        System.out.println("移除事務成功");
+        System.out.println("選擇的按鈕 : " + button);
+        System.out.println("想更改的商品ID : " + product.getProId());
+        System.out.println("輸入的數量 : " + alterNum);
+        System.out.println("輸入的金額 : " + alterPrice);
+        productDao.inAlterMyProduct(button,alterNum,alterPrice,product);
+        System.out.println("更改動作結束 ! " );
         System.out.println("----------------------------");
+        return product;
     }
 }

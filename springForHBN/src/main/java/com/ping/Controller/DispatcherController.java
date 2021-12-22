@@ -6,7 +6,6 @@ import com.ping.myCustomer.Customer;
 import com.ping.myCustomer.CustomerService;
 import com.ping.myProduct.Product;
 import com.ping.myProduct.ProductService;
-import com.sun.scenario.effect.impl.prism.PrDrawable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -129,17 +128,13 @@ public class DispatcherController {
         modelMap.addAttribute("customer", customer);
         //取得所有資料庫資料 並顯示
         List<Product> productList = productService.showProducts();
-        for (Product product :
-                productList) {
-            System.out.println("商城ID : " + product.getProId());
-        }
         modelMap.addAttribute("productList", productList);
         return "showProductPage";
     }
 
     //商品介紹
     @RequestMapping("/infoProduct")
-    public String buyProduct(ModelMap modelMap, HttpServletRequest request, Customer customer,
+    public String infoProduct(ModelMap modelMap, HttpServletRequest request, Customer customer,
                              Product product) {
         // ---取得此次表單id 將資料庫id相同的內容裝進customer裡
         int cusId = Integer.parseInt(request.getParameter("cusId"));
@@ -153,81 +148,22 @@ public class DispatcherController {
         return "infoProductPage";
     }
 
-    //我賣的商品
-    @RequestMapping("/myProduct")
-    public String myProduct(ModelMap modelMap, HttpServletRequest request, Customer customer,
-                            Product product) {
-        String findMyProduct = request.getParameter("findMyProduct"); // 分析進入請求
-        System.out.println("in to myProduct");
-        System.out.println("此次請求 : " + findMyProduct);
-        int cusId = Integer.parseInt(request.getParameter("cusId")); //登入客戶ID
-        customer = customerService.findById(cusId); // 用客戶ID 找到客戶表相關資料
-        List<Product> myProductsList;
-
-        if (findMyProduct.equals("findMyProduct")) {  // 如果從歡迎頁面登入
-            myProductsList = productService.showMyProduct(customer.getCusId()); //用客戶ID 尋找客戶的販賣商品
-            modelMap.addAttribute("customer", customer);
-            modelMap.addAttribute("myProductsList", myProductsList);
-            return "myProductPage";
-        } else if (findMyProduct.equals("alter")) {     //如果從按鈕方法進入
-            System.out.println("in alter");
-            String button = request.getParameter("button"); // 取得按下的按鈕
-            String alterNum = request.getParameter("alterNum"); // 取得輸入數字
-            System.out.println("選擇的按鈕 : " + button);
-            System.out.println("輸入的數量 : " + alterNum);
-            int proId = Integer.parseInt(request.getParameter("proId")); //欲更改的商品ID
-            product = productService.findId(proId); // 以商品ID尋找商品表相關資料
-            if(alterNum.equals("") || Integer.parseInt(alterNum) <= 0) {
-                myProductsList = productService.showMyProduct(customer.getCusId()); // 輸入錯誤的數量時，返回頁面
-                modelMap.addAttribute("customer", customer);
-                modelMap.addAttribute("myProductsList", myProductsList);
-                System.out.println("輸入錯誤 返回頁面");
-                return "myProductPage";
-            }
-            //決定更改選擇
-            if (button.equals("修改")) {
-                System.out.println("進入修改方法");
-                productService.alterMyProduct(product, Integer.parseInt(alterNum));
-                myProductsList = productService.showMyProduct(customer.getCusId()); //修改或移除後 重新用客戶ID 尋找客戶的販賣商品
-                modelMap.addAttribute("customer", customer);
-                modelMap.addAttribute("myProductsList", myProductsList);
-                return "myProductPage";
-            } else if (button.equals("移除") ) {
-                System.out.println("進入移除方法");
-                buyCustomerService.dropMyProduct(product);
-                productService.dropMyProduct(product);
-                myProductsList = productService.showMyProduct(customer.getCusId()); //修改或移除後 重新用客戶ID 尋找客戶的販賣商品
-                modelMap.addAttribute("customer", customer);
-                modelMap.addAttribute("myProductsList", myProductsList);
-                return "myProductPage";
-            }
-            myProductsList = productService.showMyProduct(customer.getCusId()); //修改或移除後 重新用客戶ID 尋找客戶的販賣商品
-            modelMap.addAttribute("customer", customer);
-            modelMap.addAttribute("myProductsList", myProductsList);
-            return "myProductPage";
-        }
-        modelMap.addAttribute("customer", customer); //如果沒進入方法 回到客戶功能
-        return "welcomeCustomerPage";
-    }
     //加入購物車
     @RequestMapping("/addMyCart")
-    public String addMuCart(Customer customer, Product product, BuyCustomer buyCustomer,
+    public String addMyCart(Customer customer, Product product, BuyCustomer buyCustomer,
                             HttpServletRequest request, ModelMap modelMap) {
-        // ---取得此次表單id 將資料庫id相同的內容裝進customer裡
-        int cusId = Integer.parseInt(request.getParameter("cusId"));
-        customer = customerService.findById(cusId);
-        modelMap.addAttribute("customer", customer);
-        // ---取得此次表單id 將資料庫id相同的內容裝進product裡
-        int proId = Integer.parseInt(request.getParameter("proId"));
-        product = productService.findId(proId);
         // ---取輸入的購買數量 並進入資料庫儲存
         int buyNum = Integer.parseInt(request.getParameter("buyNum"));
+        int cusId = Integer.parseInt(request.getParameter("cusId"));
+        customer = customerService.findById(cusId);
         System.out.println("取得購買數量 : " + buyNum);
+        int proId = Integer.parseInt(request.getParameter("proId"));
+        customer = customerService.findById(cusId);
+        product = productService.findId(proId);
         buyCustomer.setCustomer(customer); //買家資訊
         buyCustomer.setProduct(product);//商品資訊
         buyCustomer.setBuyNum(buyNum);  //購買數量
         BuyCustomer saveBuyCustomer = buyCustomerService.saveBuyCustomer(buyCustomer, product);
-
         modelMap.addAttribute("saveBuyCustomer", saveBuyCustomer);
         /*
             雖然前端有先確認一次輸入數量與庫存量
@@ -242,19 +178,110 @@ public class DispatcherController {
             return "infoProductPage";
         }
         */
-        modelMap.addAttribute("product", product);
-        return "infoProductPage";
+        return infoProduct(modelMap, request, customer, product);
+    }
+
+    //我賣的商品
+    @RequestMapping("/myProduct")
+    public String myProduct(ModelMap modelMap, HttpServletRequest request, Customer customer,
+                            Product product) {
+        String findMyProduct = request.getParameter("findMyProduct"); // 分析進入請求
+        System.out.println("in to myProduct");
+        System.out.println("此次請求 : " + findMyProduct);
+        int cusId = Integer.parseInt(request.getParameter("cusId")); //登入客戶ID
+        customer = customerService.findById(cusId); // 用客戶ID 找到客戶表相關資料
+        List<Product> myProductsList;
+        if (findMyProduct.equals("findMyProduct")) {  // 如果從歡迎頁面登入
+            myProductsList = productService.showMyProduct(customer.getCusId()); //用客戶ID 尋找客戶的販賣商品
+            modelMap.addAttribute("customer", customer);
+            modelMap.addAttribute("myProductsList", myProductsList);
+            return "myProductPage";
+        } else if (findMyProduct.equals("alter")) {     //如果從按鈕方法進入
+            System.out.println("in alter");
+            String button = request.getParameter("button"); // 取得按下的按鈕
+            String alterNum = request.getParameter("alterNum"); // 取得修改數量
+            String alterPrice = request.getParameter("alterPrice"); // 取得修改金額
+            int proId = Integer.parseInt(request.getParameter("proId")); //欲更改的商品ID
+            product = productService.findId(proId);         // 以商品ID尋找商品表相關資料
+            productService.inAlterMyProduct(button, alterNum, alterPrice, product); //進入更改方法 判定按鈕做後續的動作
+        }
+        myProductsList = productService.showMyProduct(customer.getCusId()); //修改或移除後 重新用客戶ID 尋找客戶的販賣商品
+        modelMap.addAttribute("myProductsList", myProductsList);
+        modelMap.addAttribute("customer", customer); //如果沒進入方法 回到客戶功能
+        return "myProductPage";
     }
 
     //我的購物車
     @RequestMapping("/checkMyCart")
-    public String myCart(HttpServletRequest request, Product product, ModelMap modelMap, Customer customer) {
-        // ---取得此次表單id 將資料庫id相同的內容裝進customer裡
+    public String myCart(HttpServletRequest request, Product product, ModelMap modelMap, Customer customer, BuyCustomer buyCustomer) {
+        int cusId = Integer.parseInt(request.getParameter("cusId")); //獲取會員ID
+        customer = customerService.findById(cusId);                     //以會員ID從客戶表獲取資料
+        List<BuyCustomer> buyCustomerList =
+                buyCustomerService.showBuyProduct(customer.getCusId());   //以會員ID 查找購買的商品
+        modelMap.addAttribute("buyCustomerList", buyCustomerList);
+        modelMap.addAttribute("customer", customer);
+        return "myCart";
+    }
+
+    //修改移除按鈕
+    @RequestMapping("/alterProduct")
+    public String alterProduct(HttpServletRequest request, Product product, ModelMap modelMap, Customer customer, BuyCustomer buyCustomer) {
+        String proId = request.getParameter("proId");            //獲取修改商品ID
+        String alterNum = request.getParameter("alterNum");     //獲取修改數量
+        String choose = request.getParameter("choose");
+        if (alterNum.equals("") || Integer.parseInt(alterNum) <= 0 || alterNum.isEmpty()) {
+            System.out.println("輸入錯誤 返回頁面");
+            modelMap.addAttribute("Error", "您輸入的數量有誤!");
+            return myCart(request, product, modelMap, customer, buyCustomer);
+        }
+        buyCustomerService.alterBuyProduct(choose, proId, alterNum);
+        return myCart(request, product, modelMap, customer, buyCustomer);
+    }
+
+    //移除按鈕
+    @RequestMapping("/dropProduct")
+    public String dropProduct(HttpServletRequest request, Product product, ModelMap modelMap, Customer customer, BuyCustomer buyCustomer) {
+        int proId = Integer.parseInt(request.getParameter("proId"));
+        product = productService.findId(proId);
+        buyCustomerService.dropMyProduct(product);
+
+        return myCart(request, product, modelMap, customer, buyCustomer);
+    }
+    //清除購物車按鈕
+    @RequestMapping("/cleanCart")
+    public String cleanCart(HttpServletRequest request, Product product, ModelMap modelMap, Customer customer, BuyCustomer buyCustomer) {
+        int cusId = Integer.parseInt(request.getParameter("cusId"));
+        buyCustomerService.dropMyProductAll(cusId);
+        return myCart(request, product, modelMap, customer, buyCustomer);
+    }
+
+    //結帳系統
+    @RequestMapping("/checkOut")
+    public String checkOut(HttpServletRequest request, Product product, ModelMap modelMap, Customer customer, BuyCustomer buyCustomer) {
+        int cusId = Integer.parseInt(request.getParameter("cusId"));
+        int total;
+        List<BuyCustomer> checkProductList;
+        customer = customerService.findById(cusId); //以會員ID找尋客戶表
+        checkProductList = buyCustomerService.showBuyProduct(customer.getCusId()); //查找購買會員的購物車內容
+        total = buyCustomerService.culPrice(checkProductList); //計算購物車內商品的總額
+        modelMap.addAttribute("total", total);
+        modelMap.addAttribute("customer", customer);
+        modelMap.addAttribute("checkProductList", checkProductList);
+        return "checkOutPage";
+    }
+    //確認結帳按鈕
+    @RequestMapping("/conFirm")
+    public String conFirm(HttpServletRequest request, Product product, ModelMap modelMap,
+                          Customer customer, BuyCustomer buyCustomer) {
         int cusId = Integer.parseInt(request.getParameter("cusId"));
         customer = customerService.findById(cusId);
-        modelMap.addAttribute("customer", customer);
-        List<BuyCustomer> buyCustomerList = buyCustomerService.showBuyProduct(customer.getCusId());
-        modelMap.addAttribute("buyCustomerList", buyCustomerList);
-        return "myCart";
+        int totalPrice;
+        List<BuyCustomer> buyCustomerList;
+        buyCustomerList = buyCustomerService.showBuyProduct(cusId);
+        totalPrice = buyCustomerService.culPrice(buyCustomerList); // 購物車內總額
+
+//        checkOutService.findAll();
+//        buyCustomerService.dropMyProductAll(cusId);
+        return "checkOutOKPage";
     }
 }

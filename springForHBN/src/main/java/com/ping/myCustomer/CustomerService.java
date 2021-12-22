@@ -40,9 +40,9 @@ public class CustomerService {
     /*  signIn()
      */
     public Customer signIn(Customer customer) {
-        Customer signInCus = customerDao.signIn(customer);
         System.out.println("-------------------------");
         System.out.println("將從資料庫找出用戶編碼");
+        Customer signInCus = customerDao.signIn(customer);
         System.out.println("註冊會員請求登入:");
         System.out.println("ID :" + signInCus.getCusId());
         System.out.println("名稱 :" + signInCus.getCusName());

@@ -25,9 +25,8 @@ public class BuyCustomerDao implements IBuyCustomer {
     public BuyCustomer saveBuyCustomer(BuyCustomer buyCustomer, Product product) {
         Session session = getSessionFactory();
         session.beginTransaction();
-        System.out.println("測試============================");
         session.saveOrUpdate(buyCustomer);
-        System.out.println("測試============================");
+        session.flush();
         session.getTransaction().commit();
         buyCustomer = session.get(BuyCustomer.class, buyCustomer.getBuyId());
         session.close();
@@ -40,14 +39,12 @@ public class BuyCustomerDao implements IBuyCustomer {
         Session session = getSessionFactory();
         session.beginTransaction();
         Query query = session.createQuery("from BuyCustomer where cusId = " + buyCusId);
-//        SQLQuery sqlQuery = session.createSQLQuery("select * from where buyCusId =" + cusId +"");
         List<BuyCustomer> buyCustomerList = query.list();
-//        List<BuyCustomer> buyCustomerList = sqlQuery.list();
         System.out.println(buyCustomerList.toString());
-        session.close();
         return buyCustomerList;
     }
 
+    //移除單個商品
     @Override
     public void dropMyProduct(Product product) {
         Session session = getSessionFactory();
@@ -56,5 +53,27 @@ public class BuyCustomerDao implements IBuyCustomer {
                 "and cusId = " + product.getCustomer().getCusId()).executeUpdate();
         session.getTransaction().commit();
         session.close();
+    }
+
+    //修改單個商品
+    @Override
+    public void inAlterMyProduct(String choose, String proId,String alterNum) {
+        Session session = getSessionFactory();
+        session.beginTransaction();
+        int buyProId = Integer.parseInt(proId);
+        if (choose.equals("修改")) {
+            System.out.println("進入修改方法");
+            session.createQuery("update BuyCustomer set buyNum = "+alterNum+"where buyProId = " + buyProId).executeUpdate();
+            session.getTransaction().commit();
+        }
+    }
+
+    //清除購物車
+    @Override
+    public void dropMyProductAll(int cusId) {
+        Session session = getSessionFactory();
+        session.beginTransaction();
+        session.createQuery("delete from BuyCustomer where cusId = "+cusId).executeUpdate();
+        session.getTransaction().commit();
     }
 }

@@ -18,7 +18,7 @@
 <!-- 我的購物車 -->
 <form action="checkMyCart" method="post">
     <input name="cusId" value="${customer.cusId}" hidden="hidden">
-    <button name="proCheck" value="proCheck">查看購物車</button>
+    <button name="button" value="checkMyCart" >查看購物車</button>
 </form>
 <!-- 商品全覽 -->
 <div style="background-color: gainsboro;width: auto ;height: auto">
