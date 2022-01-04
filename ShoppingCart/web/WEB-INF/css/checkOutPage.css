@@ -1,0 +1,11 @@
+.container {
+  max-width: 960px;
+}
+.leftArrow{
+  /*background-color: red;*/
+  width: 50%;
+}
+.rightArrow{
+  display: flex;
+  justify-content: space-between;
+}
